@@ -1,12 +1,13 @@
 // src/config/db.js
+require('dotenv').config(); // 1. Invoca o dotenv para ler o arquivo .env
 const mysql = require('mysql2/promise');
 
-// Usamos um 'pool' de conexões para melhor performance e controle de concorrência
+// 'pool' de conexões para melhor performance e controle de concorrência
 const pool = mysql.createPool({
-  host: 'localhost',
-  user: 'root',
-  password: 'rootpassword', // A senha que definimos no docker-compose
-  database: 'editorial_saas',
+  host: process.env.DB_HOST,         // 2. O Node puxa a informação do cofre
+  user: process.env.DB_USER,         
+  password: process.env.DB_PASSWORD, 
+  database: process.env.DB_NAME,     
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0
