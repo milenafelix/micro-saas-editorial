@@ -1,0 +1,10 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: editorial_db
+    restart: always
+    environment:
+      MYSQL_DATABASE: editorial_saas
+      MYSQL_ROOT_PASSWORD: rootpassword
+    ports:
+      - "3306:3306"
