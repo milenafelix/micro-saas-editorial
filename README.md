@@ -1,58 +1,53 @@
-# Micro-SaaS: Gestão Editorial e de Parcerias 📚
+# 📚 Micro-SaaS: Gestão Editorial e de Parcerias
 
-Uma API RESTful desenvolvida em Node.js para o gerenciamento de parcerias literárias, editoras e campanhas (como envios e recebimentos de materiais). Ideal para criadores de conteúdo e portais de cultura pop que precisam organizar suas demandas e status de publicações.
+Uma API RESTful e aplicação web desenvolvida em Node.js para o gerenciamento de parcerias literárias, editoras e campanhas.
 
-## 🚀 Tecnologias Utilizadas
-
-- Back-end: Node.js com Express
+## 🚀 Tecnologias
+- Back-end: Node.js, Express
 - Banco de Dados: MySQL 8.0 (Containerizado)
 - Infraestrutura: Docker e Docker Compose
-- Ferramentas de Teste: Thunder Client / Postman
+- Front-end: HTML5, CSS3, JavaScript
+
+## 📂 Arquitetura
+- public/: Interface web do Dashboard (HTML, CSS, JS)
+- src/config/: Configuração de conexão com o banco
+- src/controllers/: Regras de negócio do CRUD
+- src/routes/: Endpoints da API
+- docker-compose.yml: Orquestração de containers
+- Dockerfile: Build da aplicação Node.js
+- init.sql: Inicialização do banco de dados
 
 ## ⚙️ Pré-requisitos
-
-Antes de rodar o projeto, certifique-se de ter instalado em sua máquina:
-- Node.js
 - Docker e Docker Compose
 - Git
 
-## 🛠️ Como executar o projeto localmente
-
+## 🛠️ Como Executar via Docker
 1. Clone o repositório:
-git clone [https://github.com/milenafelix/micro-saas-editorial.git](https://github.com/milenafelix/micro-saas-editorial.git)
+   git clone https://github.com/milenafelix/micro-saas-editorial.git
 
-2. Acesse a pasta do projeto:
-cd micro-saas-editorial
+2. Acesse a pasta:
+   cd micro-saas-editorial
 
-3. Instale as dependências:
-npm install
+3. Suba os containers:
+   docker-compose up --build -d
 
-4. Suba o banco de dados com o Docker:
-docker-compose up -d
+4. Acesse no navegador:
+   http://localhost:3000
 
-5. Inicie o servidor de desenvolvimento:
-npm run dev
+## 🛣️ Rotas da API
+- GET /api/parcerias - Lista todas as parcerias
+- POST /api/parcerias - Cria uma nova parceria
+- PUT /api/parcerias/:id - Atualiza uma parceria
+- DELETE /api/parcerias/:id - Remove uma parceria
 
-(O servidor estará rodando em http://localhost:3000)
-
-## 🛣️ Rotas da API (CRUD)
-
-Abaixo estão os endpoints disponíveis na API para a entidade Parcerias:
-
-- GET /api/parcerias : Lista todas as parcerias cadastradas.
-- POST /api/parcerias : Cria uma nova parceria.
-- PUT /api/parcerias/:id : Atualiza os dados ou o status de uma parceria existente.
-- DELETE /api/parcerias/:id : Remove uma parceria do banco de dados.
-
-### Exemplo de Corpo de Requisição (POST / PUT)
-
+### Exemplo de Requisição (POST / PUT)
 {
   "nome_empresa": "Editora Valentina",
   "nome_programa": "Amigos da Valen",
   "status": "Ativo"
 }
 
-*Status permitidos: Ativo, Inativo, Pendente, Renovado.*
+Status permitidos: Ativo, Inativo, Pendente, Renovado.
 
 ---
-Desenvolvido com ☕ e Node.JS por Milena Félix.
+Desenvolvido com ☕ e Node.js por Milena Félix.
