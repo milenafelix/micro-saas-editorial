@@ -5,6 +5,8 @@ const parceriaRoutes = require('./src/routes/parceriaRoutes');
 const app = express();
 app.use(express.json()); // Permite entender JSON no body
 
+app.use(express.static('public'));
+
 // "Qualquer requisição que comece com /api/parcerias, mande para o parceriaRoutes"
 app.use('/api/parcerias', parceriaRoutes);
 

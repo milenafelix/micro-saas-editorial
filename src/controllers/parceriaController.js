@@ -20,6 +20,8 @@ exports.criarParceria = async (req, res) => {
         );
         res.status(201).json({ id: result.insertId, nome_empresa, nome_programa, status });
     } catch (error) {
+        // ADICIONE ESTA LINHA ABAIXO PARA VER O ERRO REAL NO TERMINAL
+        console.error("❌ Erro do MySQL:", error.sqlMessage || error); 
         res.status(500).json({ erro: 'Erro ao criar parceria' });
     }
 };

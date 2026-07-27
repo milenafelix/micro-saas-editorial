@@ -1,16 +1,10 @@
-// src/config/db.js
-require('dotenv').config(); // 1. Invoca o dotenv para ler o arquivo .env
-const mysql = require('mysql2/promise');
+const mysql = require('mysql2');
 
-// 'pool' de conexões para melhor performance e controle de concorrência
 const pool = mysql.createPool({
-  host: process.env.DB_HOST,         // 2. O Node puxa a informação do cofre
-  user: process.env.DB_USER,         
-  password: process.env.DB_PASSWORD, 
-  database: process.env.DB_NAME,     
-  waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0
+    host: process.env.DB_HOST,         // Vai ler 'db' vindo do docker-compose
+    user: process.env.DB_USER,         // Vai ler 'root'
+    password: process.env.DB_PASSWORD, // Vai ler 'sua_senha_root'
+    database: process.env.DB_NAME      // Vai ler 'db_parcerias'
 });
 
-module.exports = pool;
+module.exports = pool.promise();

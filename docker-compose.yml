@@ -1,10 +1,36 @@
 services:
   db:
     image: mysql:8.0
-    container_name: editorial_db
+    container_name: mysql_parcerias_db
     restart: always
     environment:
-      MYSQL_DATABASE: editorial_saas
-      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_ROOT_PASSWORD: sua_senha_root
+      MYSQL_DATABASE: db_parcerias
     ports:
       - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-psua_senha_root"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build: .
+    container_name: node_parcerias_app
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - DB_HOST=db
+      - DB_USER=root
+      - DB_PASSWORD=sua_senha_root
+      - DB_NAME=db_parcerias
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  mysql_data:

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Gestão de Parcerias</title>
+    <!-- Importando o CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Importando os ícones do Font Awesome (Online / CDN) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Importando o Chart.js para a geração dos gráficos -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="app-layout">
+        <!-- Menu Lateral (Sidebar) -->
+        <aside class="sidebar">
+            <div class="logo">Painel de Gerenciamento</div>
+            <nav class="sidebar-nav">
+                <a href="#" class="active">
+                    <i class="fa-solid fa-chart-pie menu-icon"></i> Dashboard
+                </a>
+                <a href="#">
+                    <i class="fa-solid fa-handshake menu-icon"></i> Parcerias
+                </a>
+                <a href="#">
+                    <i class="fa-solid fa-gear menu-icon"></i> Configurações
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Conteúdo Principal -->
+        <main class="main-content">
+            <!-- Barra Superior -->
+            <header class="topbar">
+                <h2>Visão Geral</h2>
+                <button class="btn-primary" id="btnNovaParceria" onclick="toggleForm()">+ Nova Parceria</button>
+            </header>
+
+            <!-- Área de Gráficos e Métricas -->
+            <section class="dashboard-widgets">
+                <div class="widget-card">
+                    <h3>Status das Parcerias</h3>
+                    <div style="position: relative; height: 220px; width: 100%; display: flex; justify-content: center;">
+                        <canvas id="graficoStatus"></canvas> 
+                    </div>
+                </div>
+                <div class="widget-card">
+                    <h3>Total de Programas</h3>
+                    <h1 id="totalProgramas">0</h1>
+                </div>
+            </section>
+
+            <!-- Container Lado a Lado (Formulário + Tabela) -->
+            <div class="content-grid" id="contentGrid">
+                <!-- Formulário de Cadastro / Edição (Oculto por padrão) -->
+                <section class="form-card" id="formContainer" style="display: none;">
+                    <h3 id="formTitle" style="margin-bottom: 1.5rem; color: var(--text-main); font-size: 1.1rem; text-transform: uppercase; font-weight: 700;">Cadastrar Nova Parceria</h3>
+                    
+                    <form id="formParceria" style="display: grid; gap: 1rem;">
+                        <!-- Campo oculto essencial para diferenciar Criação (POST) de Edição (PUT) -->
+                        <input type="hidden" id="parceriaId">
+
+                        <div class="input-group">
+                            <label for="nome_empresa" style="display: block; margin-bottom: 0.4rem; font-weight: 600; font-size: 0.85rem;">Empresa / Marca</label>
+                            <input type="text" id="nome_empresa" required style="width: 100%; padding: 0.75rem; border-radius: 6px; border: 1px solid var(--border);">
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="nome_programa" style="display: block; margin-bottom: 0.4rem; font-weight: 600; font-size: 0.85rem;">Programa / Ação</label>
+                            <input type="text" id="nome_programa" required style="width: 100%; padding: 0.75rem; border-radius: 6px; border: 1px solid var(--border);">
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="status" style="display: block; margin-bottom: 0.4rem; font-weight: 600; font-size: 0.85rem;">Status da Parceria</label>
+                            <select id="status" required style="width: 100%; padding: 0.75rem; border-radius: 6px; border: 1px solid var(--border); background-color: white;">
+                                <option value="Ativo">Ativo</option>
+                                <option value="Inativo">Inativo</option>
+                                <option value="Pendente">Pendente</option>
+                                <option value="Renovado">Renovado</option>
+                            </select>
+                        </div>
+                        
+                        <div style="display: flex; gap: 0.75rem; margin-top: 0.5rem;">
+                            <button type="submit" class="btn-primary" id="btnSalvar" style="flex: 1; padding: 0.75rem;">Salvar</button>
+                            <button type="button" class="btn-danger" onclick="toggleForm()" style="border: none; padding: 0.75rem;">Cancelar</button>
+                        </div>
+                    </form>
+                </section>
+
+                <!-- Tabela de Dados -->
+                <section class="table-section">
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Empresa</th>
+                                    <th>Programa</th>
+                                    <th>Status</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabelaParcerias">
+                                <!-- Dados injetados dinamicamente via app.js -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Script de Integração com a API -->
+    <script src="js/app.js"></script>
+</body>
+</html>
