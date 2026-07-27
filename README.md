@@ -55,4 +55,4 @@ Abaixo estão os endpoints disponíveis na API para a entidade Parcerias:
 *Status permitidos: Ativo, Inativo, Pendente, Renovado.*
 
 ---
-Desenvolvido com ☕ e Node.JS por Maria Milena.
+Desenvolvido com ☕ e Node.JS por Milena Félix.
